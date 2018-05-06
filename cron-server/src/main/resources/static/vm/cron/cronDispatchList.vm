@@ -1,0 +1,13 @@
+#parse("/static/vm/public/head.vm")
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">运行记录</h2>
+    </div>
+    <div class="row animated fadeInRight">
+        #parse("/static/vm/cron/cronDispatchListAjax.vm")
+    </div>
+</div>
+
+#parse("/static/vm/public/foot.vm")
+<script src="/js/cron/index.js"></script>

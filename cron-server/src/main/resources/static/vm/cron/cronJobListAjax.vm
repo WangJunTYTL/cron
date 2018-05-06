@@ -1,0 +1,49 @@
+<table class="table table-bordered table-hover table-condensed">
+    <thead>
+    <th>Job名称</th>
+    <th>Cron表达式</th>
+    <th>预计下次执行时间</th>
+    <th>当前运行状态</th>
+    <th>-</th>
+    <th>-</th>
+    </thead>
+    <tbody>
+        #foreach($cronJob in $cronJobList)
+        <tr>
+            <td>$!cronJob.name</td>
+            <td>$!cronJob.cronExpression</td>
+            <td>$!cronJob.nextExecutionTime</td>
+            <td>
+                #if($!cronJob.status == 'INIT')
+                    <span class="label label-default">$!cronJob.status.desc</span>
+                #elseif($!cronJob.status == 'WAIT')
+                    <span class="label label-warning">$!cronJob.status.desc</span>
+                #elseif($!cronJob.status == 'START')
+                    <span class="label label-primary">$!cronJob.status.desc</span>
+                #elseif($!cronJob.status == 'SUSPEND')
+                    <span class="label label-info">$!cronJob.status.desc</span>
+                #end
+            </td>
+            <td>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" type="button"
+                       id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="true">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">立即执行</a></li>
+                        <li><a href="#">暂停调度</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <a href="/cron/dispatch/list?name=$!cronJob.name">运行记录</a>
+            </td>
+        </tr>
+        #end
+
+    </tbody>
+
+</table>

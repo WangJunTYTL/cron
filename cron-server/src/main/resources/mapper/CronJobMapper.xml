@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peaceful.cron.server.modal.CronJobMapper">
+
+    <select id="select" resultType="com.peaceful.cron.server.modal.CronJob">
+        SELECT * FROM cron_job
+        <where>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="status != null">
+                and `status` = #{status}
+            </if>
+            <if test="nextExecutionTimeStart != null">
+                AND `next_execution_time` &gt;= #{nextExecutionTimeStart}
+            </if>
+            <if test="nextExecutionTimeEnd != null">
+                AND `next_execution_time` &lt;= #{nextExecutionTimeEnd}
+            </if>
+        </where>
+        ORDER BY  id DESC
+    </select>
+
+    <update id="update">
+        UPDATE cron_job
+        <set>
+            <if test="cronExpression != null">
+                `cron_expression` = #{cronExpression} ,
+            </if>
+            <if test="nextExecutionTime != null">
+                `next_execution_time` = #{nextExecutionTime} ,
+            </if>
+            <if test="status != null">
+                `status` = #{status} ,
+            </if>
+            <if test="name != null">
+                `name` = #{name} ,
+            </if>
+        </set>
+        WHERE `id` = #{id}
+    </update>
+</mapper>
+
+

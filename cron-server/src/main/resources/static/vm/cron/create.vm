@@ -1,0 +1,69 @@
+#parse("/static/vm/public/head.vm")
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">新建Cron任务</h2>
+    </div>
+    <div class="row animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Job名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="命名请使用字母、下划线、点号、数字组合">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3"
+                               class="col-sm-2 control-label">Cron表达式</label>
+                        <div class="col-sm-10">
+                            <small><a href="http://cron.qqe2.com/" target="_blank">在线生成cron表达式</a>
+                            </small>
+                            <input type="text" class="form-control" name="cronExpression"
+                                   id="cronExpression" placeholder="* * * * * ? *">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3"
+                               class="col-sm-2 control-label">指定Job运行机器IP</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="host"
+                                   id="cronExpression" placeholder="不建议填写，默认Cron服务会动态选择集群中某一台执行">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3"
+                               class="col-sm-2 control-label">设定Job运行超时时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="host"
+                                   id="cronExpression" placeholder="单位分钟">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3"
+                               class="col-sm-2 control-label">Job超时后是否需要尝试杀掉</label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline">
+                                <input type="radio" id="inlineCheckbox1" value="option1" checked="true" name="isNeedKill"> 不需要
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="inlineCheckbox2" value="option2" name="isNeedKill"> 需要
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-primary" id="submitMenu">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#parse("/static/vm/public/foot.vm")
+<script src="/js/cron/index.js"></script>

@@ -1,0 +1,38 @@
+<table class="table table-bordered table-hover">
+    <thead>
+    <td>Job名称</td>
+    <td>调度指令</td>
+    <td>状态</td>
+    <td>计划执行时间</td>
+    <td>完成时间</td>
+    </thead>
+    <tbody>
+        #foreach($cronDispatch in $cronDispatchList)
+        <tr>
+            <td>$!cronDispatch.name</td>
+            <td>$!cronDispatch.id</td>
+            <td>
+                #if($!cronDispatch.status == 'INIT')
+                    <span class="label label-default">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'DISPATCH_SEND')
+                    <span class="label label-warning">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'DISPATCH_ERROR')
+                    <span class="label label-danger">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'JOB_SUCCESS')
+                    <span class="label label-primary">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'JOB_EXCEPTION')
+                    <span class="label label-danger">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'JOB_TIMEOUT')
+                    <span class="label label-warning">$!cronDispatch.status.desc</span>
+                #else
+                    $!cronDispatch.status.desc
+                #end
+            </td>
+            <td>$!cronDispatch.dispatchTime</td>
+            <td>$!cronDispatch.completeTime</td>
+        </tr>
+        #end
+
+    </tbody>
+
+</table>

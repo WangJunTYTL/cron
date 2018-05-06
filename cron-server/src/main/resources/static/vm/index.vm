@@ -1,0 +1,41 @@
+#parse("/static/vm/public/head.vm")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>新建Cron任务</h2>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Job名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" id="name"
+                               placeholder="命名请使用字母、下划线、点号、数字组合">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3"
+                           class="col-sm-2 control-label">Cron表达式</label>
+                    <div class="col-sm-10">
+                        <small><a href="http://cron.qqe2.com/" target="_blank">在线生成cron表达式</a>
+                        </small>
+                        <input type="text" class="form-control" name="cronExpression"
+                               id="cronExpression" placeholder="* * * * * ? *">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-primary" id="submitMenu">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/static/vm/public/foot.vm")
+<script src="/js/cron/index.js"></script>
