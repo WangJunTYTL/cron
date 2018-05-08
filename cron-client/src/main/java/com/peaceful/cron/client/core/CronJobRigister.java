@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Juna on 2018/5/6.
+ * Created by Jun on 2018/5/6.
  */
 public class CronJobRigister {
 

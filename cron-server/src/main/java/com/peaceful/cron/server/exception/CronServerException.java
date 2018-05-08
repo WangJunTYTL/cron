@@ -1,7 +1,7 @@
 package com.peaceful.cron.server.exception;
 
 /**
- * Created by Juna on 2018/5/5.
+ * Created by Jun on 2018/5/5.
  */
 public class CronServerException extends RuntimeException {
     private int code;

@@ -5,7 +5,7 @@ import com.peaceful.cron.server.modal.DispatchStatus;
 import java.sql.Timestamp;
 
 /**
- * Created by Juna on 2018/5/9.
+ * Created by Jun on 2018/5/9.
  */
 public class CronDispatchSearch {
 

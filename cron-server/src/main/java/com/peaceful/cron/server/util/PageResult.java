@@ -14,7 +14,7 @@ import java.io.StringWriter;
 import java.util.Map;
 
 /**
- * Created by Juna on 2018/4/12.
+ * Created by Jun on 2018/4/12.
  */
 public class PageResult {
 

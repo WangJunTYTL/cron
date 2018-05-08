@@ -4,7 +4,7 @@ import com.peaceful.cron.server.exception.CronResponseCode;
 import com.peaceful.cron.server.exception.CronServerException;
 
 /**
- * Created by Juna on 2018/4/19.
+ * Created by Jun on 2018/4/19.
  */
 public class JsonResult {
 

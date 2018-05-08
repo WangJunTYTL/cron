@@ -7,7 +7,7 @@ import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 
 /**
- * Created by Juna on 2018/5/6.
+ * Created by Jun on 2018/5/6.
  */
 public class IJob implements Runnable {
 

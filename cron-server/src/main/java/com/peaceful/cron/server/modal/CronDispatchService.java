@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by Juna on 2018/5/6.
+ * Created by Jun on 2018/5/6.
  */
 @Service
 public class CronDispatchService {

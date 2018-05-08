@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by Juna on 2018/5/6.
+ * Created by Jun on 2018/5/6.
  */
 @RestController
 public class WelcomeController {

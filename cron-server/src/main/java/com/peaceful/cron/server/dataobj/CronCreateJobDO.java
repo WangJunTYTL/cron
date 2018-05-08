@@ -10,7 +10,7 @@ import com.peaceful.cron.server.modal.JobStatus;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Created by Juna on 2018/5/5.
+ * Created by Jun on 2018/5/5.
  */
 public class CronCreateJobDO {
 

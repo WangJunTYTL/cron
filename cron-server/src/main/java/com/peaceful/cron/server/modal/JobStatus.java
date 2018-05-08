@@ -3,7 +3,7 @@ package com.peaceful.cron.server.modal;
 /**
  * Task状态机
  *
- * Created by Juna on 2018/5/5.
+ * Created by Jun on 2018/5/5.
  */
 public enum JobStatus {
     INIT(0, "初始化"),
