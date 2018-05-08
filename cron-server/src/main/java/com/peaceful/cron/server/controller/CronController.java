@@ -27,7 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by wangjun38 on 2018/5/5.
+ * Created by Juna on 2018/5/5.
  */
 @RestController
 @RequestMapping("cron")

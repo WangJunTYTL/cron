@@ -10,7 +10,7 @@ import com.peaceful.cron.server.modal.DispatchStatus;
 import java.sql.Timestamp;
 
 /**
- * Created by wangjun38 on 2018/5/5.
+ * Created by Juna on 2018/5/5.
  */
 public class CronUpdateDispatchDO {
 

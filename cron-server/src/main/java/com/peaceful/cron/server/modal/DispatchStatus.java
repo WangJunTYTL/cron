@@ -3,7 +3,7 @@ package com.peaceful.cron.server.modal;
 /**
  * Task状态机
  *
- * Created by wangjun38 on 2018/5/5.
+ * Created by Juna on 2018/5/5.
  */
 public enum DispatchStatus {
     INIT(0, "等待调度"),

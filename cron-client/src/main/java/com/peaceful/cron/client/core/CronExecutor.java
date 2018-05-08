@@ -4,7 +4,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * Created by wangjun38 on 2018/5/6.
+ * Created by Juna on 2018/5/6.
  */
 public class CronExecutor {
 

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by wangjun38 on 2018/5/5.
+ * Created by Juna on 2018/5/5.
  */
 public class JobStatusTypeHandler extends BaseTypeHandler<JobStatus> {
 

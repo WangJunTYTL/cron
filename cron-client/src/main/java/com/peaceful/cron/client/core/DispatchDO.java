@@ -4,7 +4,7 @@ import com.peaceful.cron.client.exception.CronException;
 import com.peaceful.cron.client.exception.CronStatusCode;
 
 /**
- * Created by wangjun38 on 2018/5/6.
+ * Created by Juna on 2018/5/6.
  */
 public class DispatchDO {
 
