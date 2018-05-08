@@ -2,11 +2,14 @@ package com.peaceful.cron.server.controller;
 
 import com.google.common.collect.Maps;
 
+import com.github.pagehelper.PageInfo;
 import com.peaceful.cron.server.dataobj.CronCreateJobDO;
+import com.peaceful.cron.server.dataobj.CronDispatchSearch;
+import com.peaceful.cron.server.dataobj.CronJobSearch;
 import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronDispatch;
 import com.peaceful.cron.server.modal.CronJob;
-import com.peaceful.cron.server.service.CronEngine;
+import com.peaceful.cron.server.service.CronService;
 import com.peaceful.cron.server.service.DispatchTransaction;
 import com.peaceful.cron.server.util.JsonResult;
 import com.peaceful.cron.server.util.PageResult;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by wangjun38 on 2018/5/5.
  */
@@ -29,7 +34,7 @@ import java.util.Map;
 public class CronController {
 
     @Autowired
-    private CronEngine cronJobService;
+    private CronService cronJobService;
     @Autowired
     private DispatchTransaction dispatchTransaction;
 
@@ -60,12 +65,22 @@ public class CronController {
         }
     }
 
-    @RequestMapping("job/list")
-    public String findCronJobList(String isAjax) {
+    @RequestMapping("job/search")
+    public String searchCronJobList(String isAjax, HttpServletRequest request) {
         try {
-            List<CronJob> cronJobList = cronJobService.findCronJobList();
+            CronJobSearch cronJobSearch = new CronJobSearch();
+            String pageNumStr = request.getParameter("pageNum");
+            if (StringUtils.isNotBlank(pageNumStr)) {
+                cronJobSearch.setPageNo(Integer.parseInt(pageNumStr));
+            }
+            String jobName = request.getParameter("jobName");
+            if (StringUtils.isNotBlank(jobName)) {
+                cronJobSearch.setName(jobName);
+            }
+
+            PageInfo<CronJob> cronJobList = cronJobService.searchCronJob(cronJobSearch);
             Map<String, Object> data = Maps.newHashMap();
-            data.put("cronJobList", cronJobList);
+            data.put("pageInfo", cronJobList);
             if ("true".equalsIgnoreCase(isAjax)) {
                 return PageResult.render("/static/vm/cron/cronJobListAjax.vm", data);
             } else {
@@ -77,11 +92,18 @@ public class CronController {
     }
 
     @RequestMapping("dispatch/list")
-    public String findCronDispatchList(String isAjax, String name) {
+    public String findCronDispatchList(String isAjax, HttpServletRequest request) {
         try {
-            List<CronDispatch> cronJobList = cronJobService.findCronDispatchList(name);
+            CronDispatchSearch search = new CronDispatchSearch();
+            String pageNumStr = request.getParameter("pageNum");
+            if (StringUtils.isNotBlank(pageNumStr)) {
+                search.setPageNum(Integer.parseInt(pageNumStr));
+            }
+            String name = request.getParameter("name");
+            search.setName(name);
+            PageInfo<CronDispatch> pageInfo = cronJobService.searchCronDispatchList(search);
             Map<String, Object> data = Maps.newHashMap();
-            data.put("cronDispatchList", cronJobList);
+            data.put("pageInfo", pageInfo);
             if ("true".equalsIgnoreCase(isAjax)) {
                 return PageResult.render("/static/vm/cron/cronDispatchListAjax.vm", data);
             } else {

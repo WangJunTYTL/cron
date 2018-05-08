@@ -12,14 +12,20 @@
             <if test="status != null">
                 and `status` = #{status}
             </if>
-            <if test="dispatchTime != null">
-                AND `dispatch_time` &lt;= #{dispatchTime}
+            <if test="dispatchTimeEnd != null">
+                AND `dispatch_time` &lt;= #{dispatchTimeEnd}
             </if>
-            <if test="completeTime != null">
-                AND `completeTime` &lt;= #{completeTime} ,
+            <if test="dispatchTimeStart != null">
+                AND `dispatch_time` &gt;= #{dispatchTimeStart}
+            </if>
+            <if test="completeTimeEnd != null">
+                AND `completeTime` &lt;= #{completeTimeEnd} ,
+            </if>
+            <if test="completeTimeStart != null">
+                AND `completeTime` &gt;= #{completeTimeStart} ,
             </if>
         </where>
-        ORDER BY  id DESC
+        ORDER BY id DESC
     </select>
 
     <update id="update">

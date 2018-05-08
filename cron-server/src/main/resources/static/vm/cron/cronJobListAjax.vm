@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover table-condensed">
+<table class="table table-bordered table-hover table-condensed animated fadeInRight">
     <thead>
     <th>Job名称</th>
     <th>Cron表达式</th>
@@ -8,7 +8,7 @@
     <th>-</th>
     </thead>
     <tbody>
-        #foreach($cronJob in $cronJobList)
+        #foreach($cronJob in $pageInfo.list)
         <tr>
             <td>$!cronJob.name</td>
             <td>$!cronJob.cronExpression</td>
@@ -47,3 +47,41 @@
     </tbody>
 
 </table>
+#if($!pageInfo.total)
+<div class="row">
+    <div class="col-sm-12">
+        <div class="dataTables_info" id="editable_info" role="status" aria-live="polite">
+            每页显示$!{pageInfo.size}条，共$!{pageInfo.total}条，共$!{pageInfo.pages}页
+        </div>
+    </div>
+    <div class="col-sm-12">
+
+        <ul class="pagination">
+            #if($pageInfo.hasPreviousPage)
+                <li class="pageNavMenuT">
+                    <a href="javascript:void(0)" aria-label="Previous" value="$!{pageInfo.prePage}>
+                        <span aria-hidden=" true">&laquo;</span>
+                    </a>
+                </li>
+            #end
+
+            #foreach($num in $pageInfo.navigatepageNums)
+                #if($pageInfo.pageNum == $num)
+                    <li class="active pageNavMenu"><a href="javascript:void(0)">$num</a></li>
+                #else
+                    <li class="pageNavMenu"><a href="javascript:void(0)">$num</a></li>
+                #end
+
+            #end
+
+            #if($pageInfo.hasNextPage)
+                <li>
+                    <a href="javascript:void(0)" aria-label="Next" value="$!{pageInfo.nextPage}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            #end
+        </ul>
+    </div>
+</div>
+#end

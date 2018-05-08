@@ -6,12 +6,12 @@ package com.peaceful.cron.server.modal;
  * Created by wangjun38 on 2018/5/5.
  */
 public enum DispatchStatus {
-    INIT(0, "未到执行时间"),
-    DISPATCH_SEND(1, "指令发送成功"),
-    DISPATCH_ERROR(2, "指令发送失败"),
-    JOB_SUCCESS(3, "Job执行成功"),
-    JOB_EXCEPTION(4, "Job执行异常"),
-    JOB_TIMEOUT(5, "Job执行超时"),;
+    INIT(0, "等待调度"),
+    DISPATCH_SEND(1, "等待执行"),
+    DISPATCH_ERROR(2, "执行失败"),
+    JOB_SUCCESS(3, "执行成功"),
+    JOB_EXCEPTION(4, "执行异常"),
+    JOB_TIMEOUT(5, "执行超时"),;
 
     private int code;
     private String desc;

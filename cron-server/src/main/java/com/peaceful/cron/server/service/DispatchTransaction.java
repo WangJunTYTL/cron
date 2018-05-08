@@ -20,7 +20,7 @@ public class DispatchTransaction {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private CronEngine cronEngine;
+    private CronService cronEngine;
 
     /**
      * 发送执行指令

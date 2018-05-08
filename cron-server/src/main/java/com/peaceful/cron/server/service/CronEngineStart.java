@@ -18,7 +18,7 @@ public class CronEngineStart {
     public static final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     @Autowired
-    private CronEngine cronService;
+    private CronService cronService;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

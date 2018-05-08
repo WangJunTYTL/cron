@@ -13,6 +13,8 @@ public class CronJobSearch {
     private JobStatus status;
     private Timestamp nextExecutionTimeStart;
     private Timestamp nextExecutionTimeEnd;
+    private int pageNo;
+    private int pageSize;
 
     public String getName() {
         return name;
@@ -44,5 +46,23 @@ public class CronJobSearch {
 
     public void setNextExecutionTimeEnd(Timestamp nextExecutionTimeEnd) {
         this.nextExecutionTimeEnd = nextExecutionTimeEnd;
+    }
+
+    public int getPageNo() {
+        if (pageNo <= 0) pageNo = 0;
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public int getPageSize() {
+        if (pageSize <= 0) pageSize = 10;
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

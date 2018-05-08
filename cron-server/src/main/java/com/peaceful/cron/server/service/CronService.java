@@ -1,6 +1,9 @@
 package com.peaceful.cron.server.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.peaceful.cron.server.dataobj.CronCreateJobDO;
+import com.peaceful.cron.server.dataobj.CronDispatchSearch;
 import com.peaceful.cron.server.dataobj.CronJobSearch;
 import com.peaceful.cron.server.dataobj.CronUpdateDispatchDO;
 import com.peaceful.cron.server.dataobj.CronUpdateJobDO;
@@ -29,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * Created by wangjun38 on 2018/5/5.
  */
 @Service
-public class CronEngine {
+public class CronService {
 
     @Autowired
     private CronJobMapper cronJobMapper;
@@ -51,14 +54,17 @@ public class CronEngine {
         }
     }
 
-    public List<CronJob> findCronJobList() {
-        return cronJobMapper.selectList();
+    public PageInfo<CronJob> searchCronJob(CronJobSearch search) {
+        PageHelper.startPage(search.getPageNo(), search.getPageSize());
+        List<CronJob> cronJobList = cronJobMapper.select(search);
+        PageInfo<CronJob> pageInfo = new PageInfo<>(cronJobList);
+        return pageInfo;
     }
 
-    public List<CronDispatch> findCronDispatchList(String name) {
-        CronDispatch cronDispatch = new CronDispatch();
-        cronDispatch.setName(name);
-        return cronDispatchMapper.select(cronDispatch);
+    public PageInfo<CronDispatch> searchCronDispatchList(CronDispatchSearch search) {
+        PageHelper.startPage(search.getPageNum(), search.getPageSize());
+        List<CronDispatch> cronDispatchList = cronDispatchMapper.select(search);
+        return new PageInfo<>(cronDispatchList);
     }
 
     public void restart() {
@@ -89,9 +95,9 @@ public class CronEngine {
         });
 
         // 对于应该到时的任务，发送执行指令
-        CronDispatch cronDispatch = new CronDispatch();
+        CronDispatchSearch cronDispatch = new CronDispatchSearch();
         cronDispatch.setStatus(DispatchStatus.INIT);
-        cronDispatch.setDispatchTime(new Timestamp(System.currentTimeMillis()));
+        cronDispatch.setDispatchTimeEnd(new Timestamp(System.currentTimeMillis()));
         List<CronDispatch> cronDispatchList = cronDispatchMapper.select(cronDispatch);
         cronDispatchList.forEach(dispatch -> {
             // TODO 该块逻辑可以走队列服务或者并发处理，提高处理能力

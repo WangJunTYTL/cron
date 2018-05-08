@@ -4,10 +4,26 @@
     <div class="row">
         <h2 class="page-header">调度中心</h2>
     </div>
-    <div class="row animated fadeInRight">
+    <div class="row">
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="serviceName">服务标识</label>
+                <input type="text" class="form-control" id="serviceName"
+                       placeholder="选择服务所属服务">
+            </div>
+            <div class="form-group">
+                <label for="jobName">Job名称</label>
+                <input type="text" class="form-control" id="jobName"
+                       placeholder="不支持模糊搜索">
+            </div>
+            <button  class="btn btn-primary" id="searchMenu">查找</button>
+        </div>
+        <button>
+    </div>
+    <div class="row" id="resultBody">
         #parse("/static/vm/cron/cronJobListAjax.vm")
     </div>
 </div>
 
 #parse("/static/vm/public/foot.vm")
-<script src="/js/cron/index.js"></script>
+<script src="/js/cron/cronJobList.js"></script>

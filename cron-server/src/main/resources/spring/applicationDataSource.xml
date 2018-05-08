@@ -26,6 +26,21 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            params=count=countSql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
 

@@ -1,13 +1,16 @@
+<p class="alert alert-success">只展示最近10条运行记录</p>
 <table class="table table-bordered table-hover">
     <thead>
-    <td>Job名称</td>
-    <td>调度指令</td>
-    <td>状态</td>
-    <td>计划执行时间</td>
-    <td>完成时间</td>
+    <tr>
+        <td>Job名称</td>
+        <td>调度指令</td>
+        <td>状态</td>
+        <td>计划执行时间</td>
+        <td>完成时间</td>
+    </tr>
     </thead>
     <tbody>
-        #foreach($cronDispatch in $cronDispatchList)
+        #foreach($cronDispatch in $pageInfo.list)
         <tr>
             <td>$!cronDispatch.name</td>
             <td>$!cronDispatch.id</td>

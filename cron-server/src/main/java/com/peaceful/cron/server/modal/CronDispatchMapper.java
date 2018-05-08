@@ -1,6 +1,8 @@
 package com.peaceful.cron.server.modal;
 
 
+import com.peaceful.cron.server.dataobj.CronDispatchSearch;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,7 +22,7 @@ public interface CronDispatchMapper {
     @Select("select * from cron_dispatch where `id` = #{id}")
     CronDispatch selectById(@Param("id") long id);
 
-    List<CronDispatch> select(CronDispatch cronDispatch);
+    List<CronDispatch> select(CronDispatchSearch search);
 
     int update(CronDispatch cronDispatch);
 }
