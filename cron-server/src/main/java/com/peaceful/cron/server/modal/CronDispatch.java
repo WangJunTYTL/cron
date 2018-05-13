@@ -11,6 +11,7 @@ public class CronDispatch {
     private String name;
     private int retryCount;
     private DispatchStatus status;
+    private int ackCode;
     private Timestamp dispatchTime;
     private Timestamp completeTime;
 
@@ -44,6 +45,14 @@ public class CronDispatch {
 
     public void setStatus(DispatchStatus status) {
         this.status = status;
+    }
+
+    public int getAckCode() {
+        return ackCode;
+    }
+
+    public void setAckCode(int ackCode) {
+        this.ackCode = ackCode;
     }
 
     public Timestamp getDispatchTime() {

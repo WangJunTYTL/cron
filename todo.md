@@ -9,3 +9,11 @@
 
 * 支持：scheduleAtFixedRate
 * 不支持：scheduleWithFixedDelay
+
+Cron 表达式解析模块
+------
+https://github.com/jmrozanec/cron-utils
+
+Cron 在线表达式生成
+----------------
+http://cron.qqe2.com

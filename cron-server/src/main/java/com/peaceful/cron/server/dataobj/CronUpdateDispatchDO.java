@@ -16,6 +16,7 @@ public class CronUpdateDispatchDO {
 
     private long id;
     private DispatchStatus status;
+    private int ackCode;
     private Timestamp completeTime;
 
 
@@ -33,6 +34,7 @@ public class CronUpdateDispatchDO {
         CronDispatch cronDispatch = new CronDispatch();
         cronDispatch.setId(id);
         cronDispatch.setStatus(status);
+        cronDispatch.setAckCode(ackCode);
         cronDispatch.setCompleteTime(completeTime);
         return cronDispatch;
     }
@@ -51,6 +53,14 @@ public class CronUpdateDispatchDO {
 
     public void setStatus(DispatchStatus status) {
         this.status = status;
+    }
+
+    public int getAckCode() {
+        return ackCode;
+    }
+
+    public void setAckCode(int ackCode) {
+        this.ackCode = ackCode;
     }
 
     public Timestamp getCompleteTime() {

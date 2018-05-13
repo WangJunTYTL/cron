@@ -1,4 +1,6 @@
 
+cron-client/dependency-reduced-pom.xml
+
 # maven ignore
 target/
 *.jar

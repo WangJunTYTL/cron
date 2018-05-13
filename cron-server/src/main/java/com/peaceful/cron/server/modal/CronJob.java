@@ -15,6 +15,8 @@ public class CronJob {
     private Timestamp createTime;
     private Timestamp updateTime;
 
+
+
     public long getId() {
         return id;
     }

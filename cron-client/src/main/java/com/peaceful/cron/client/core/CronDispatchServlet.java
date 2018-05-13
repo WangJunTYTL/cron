@@ -1,12 +1,13 @@
 package com.peaceful.cron.client.core;
 
 import com.peaceful.cron.client.exception.CronException;
-import com.peaceful.cron.client.logging.Log;
-import com.peaceful.cron.client.logging.LogFactory;
+import com.peaceful.cron.client.mock.JobMock;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,30 +17,29 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CronDispatchServlet extends HttpServlet {
 
-    private Log log = LogFactory.getLog(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     static {
-        CronJobRigister.add("test", new JobMock());
+        CronScheduler.add("test", new JobMock());
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String jobName = request.getParameter("_jobName");
         String dispatchId = request.getParameter("_dispatchId");
-        DispatchDO dispatchDO = new DispatchDO();
-        dispatchDO.setJobName(jobName);
-        dispatchDO.setDispatchId(dispatchId);
-        log.warn(System.currentTimeMillis() + ":" + jobName);
+        CronJob cronJob = new CronJob();
+        cronJob.setDispatchId(dispatchId);
+        cronJob.setName(jobName);
+        cronJob.setStatus(JobStatus.START);
 
-        // 这里需要尽量避免Dispatch的阻塞
+        logger.info("cron dispatch servlet:{}", cronJob);
         try {
-            dispatchDO.validate();
-            CronExecutor.commit(new IJob(dispatchDO));
-            response.getWriter().print("ok");
+            CronExecutors.EXECUTOR.execute(new CronJobCommand(cronJob));
         } catch (CronException e) {
-            response.getWriter().print("fail");
+            logger.warn("CronException:" + e);
+        } finally {
+            response.getWriter().print(cronJob.buildJson());
+            response.getWriter().flush();
         }
-        response.getWriter().flush();
-
     }
 }

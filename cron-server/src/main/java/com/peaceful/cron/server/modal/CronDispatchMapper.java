@@ -22,6 +22,9 @@ public interface CronDispatchMapper {
     @Select("select * from cron_dispatch where `id` = #{id}")
     CronDispatch selectById(@Param("id") long id);
 
+    @Select("select * from cron_dispatch where `id` = #{id} for update")
+    CronDispatch lock(@Param("id") long id);
+
     List<CronDispatch> select(CronDispatchSearch search);
 
     int update(CronDispatch cronDispatch);

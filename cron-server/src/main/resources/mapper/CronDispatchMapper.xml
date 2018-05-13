@@ -34,6 +34,9 @@
             <if test="status != null">
                 `status` = #{status} ,
             </if>
+            <if test="ackCode != 0">
+                `ack_code` = #{ackCode} ,
+            </if>
             <if test="completeTime != null">
                 `complete_time` = #{completeTime} ,
             </if>

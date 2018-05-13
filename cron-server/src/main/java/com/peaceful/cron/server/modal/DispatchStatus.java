@@ -7,11 +7,12 @@ package com.peaceful.cron.server.modal;
  */
 public enum DispatchStatus {
     INIT(0, "等待调度"),
-    DISPATCH_SEND(1, "等待执行"),
+    START(1, "开始执行"),
     DISPATCH_ERROR(2, "执行失败"),
     JOB_SUCCESS(3, "执行成功"),
     JOB_EXCEPTION(4, "执行异常"),
-    JOB_TIMEOUT(5, "执行超时"),;
+    JOB_TIMEOUT(5, "执行超时"),
+    UNKNOWN(500, "未知ACK码");
 
     private int code;
     private String desc;

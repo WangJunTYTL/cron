@@ -1,10 +1,12 @@
 #parse("/static/vm/public/head.vm")
 
-<div class="container">
-    <div class="row">
+<div class="row">
+    <div class="col-lg-12">
         <h2 class="page-header">调度中心</h2>
     </div>
-    <div class="row">
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <div class="form-inline">
             <div class="form-group">
                 <label for="serviceName">服务标识</label>
@@ -16,11 +18,13 @@
                 <input type="text" class="form-control" id="jobName"
                        placeholder="不支持模糊搜索">
             </div>
-            <button  class="btn btn-primary" id="searchMenu">查找</button>
+            <button class="btn btn-primary" id="searchMenu">查找</button>
         </div>
-        <button>
     </div>
-    <div class="row" id="resultBody">
+</div>
+<br>
+<div class="row" id="resultBody">
+    <div class="col-lg-12">
         #parse("/static/vm/cron/cronJobListAjax.vm")
     </div>
 </div>

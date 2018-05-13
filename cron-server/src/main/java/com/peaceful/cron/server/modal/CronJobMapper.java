@@ -18,6 +18,9 @@ public interface CronJobMapper {
     @Insert("insert into cron_job (`name`,`cron_expression`,`status`,`update_time`) values (#{name},#{cronExpression},#{status},now())")
     int insert(CronJob cronJob);
 
+    @Select("select * from cron_job where `id` = #{id} for update")
+    CronJob lock(@Param("id")long id);
+
     @Select("select * from cron_job where `status` = #{status}")
     List<CronJob> selectListByStatus(@Param("status") JobStatus status);
 
@@ -29,6 +32,9 @@ public interface CronJobMapper {
 
     @Select("select * from cron_job where `name` = #{name}")
     CronJob selectByName(@Param("name") String name);
+
+    @Select("select * from cron_job where `name` = #{name} for update")
+    CronJob lockByName(@Param("name") String name);
 
     int update(CronJob cronJob);
 
