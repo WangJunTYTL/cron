@@ -1,7 +1,7 @@
 package com.peaceful.cron.client.core;
 
 /**
- * Created by wangjun38 on 2018/5/12.
+ * Created by Jun on 2018/5/12.
  */
 public class InstanceManager {
 

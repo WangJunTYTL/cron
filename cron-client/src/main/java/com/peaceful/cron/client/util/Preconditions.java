@@ -4,7 +4,7 @@ import com.peaceful.cron.client.exception.CronException;
 import com.peaceful.cron.client.exception.CronExceptionEnum;
 
 /**
- * Created by wangjun38 on 2018/5/12.
+ * Created by Jun on 2018/5/12.
  */
 public class Preconditions {
 
