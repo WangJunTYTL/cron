@@ -12,7 +12,9 @@ public class CronDispatch {
     private int retryCount;
     private DispatchStatus status;
     private int ackCode;
-    private Timestamp dispatchTime;
+    private Timestamp planDispatchTime;
+    private Timestamp realDispatchTime;
+    private Timestamp realExecutionTime;
     private Timestamp completeTime;
 
     public long getId() {
@@ -55,12 +57,28 @@ public class CronDispatch {
         this.ackCode = ackCode;
     }
 
-    public Timestamp getDispatchTime() {
-        return dispatchTime;
+    public Timestamp getPlanDispatchTime() {
+        return planDispatchTime;
     }
 
-    public void setDispatchTime(Timestamp dispatchTime) {
-        this.dispatchTime = dispatchTime;
+    public Timestamp getRealDispatchTime() {
+        return realDispatchTime;
+    }
+
+    public void setRealDispatchTime(Timestamp realDispatchTime) {
+        this.realDispatchTime = realDispatchTime;
+    }
+
+    public Timestamp getRealExecutionTime() {
+        return realExecutionTime;
+    }
+
+    public void setRealExecutionTime(Timestamp realExecutionTime) {
+        this.realExecutionTime = realExecutionTime;
+    }
+
+    public void setPlanDispatchTime(Timestamp planDispatchTime) {
+        this.planDispatchTime = planDispatchTime;
     }
 
     public Timestamp getCompleteTime() {

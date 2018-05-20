@@ -1,7 +1,7 @@
 $(function () {
 
     $("#searchMenu").click(function () {
-        var pageNum = $(".pageNavMenu.active").find("a").html()
+        var pageNum = $(".pageNavMenu.active").find("a").attr("value")
         var jobName = $("#jobName").val()
         var serviceName = $("#serviceName").val()
 

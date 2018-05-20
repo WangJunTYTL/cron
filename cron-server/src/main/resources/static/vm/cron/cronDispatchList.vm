@@ -32,7 +32,7 @@
             </div>
             <div class="ibox-content">
                 #parse("/static/vm/cron/cronDispatchListAjax.vm")
-            </div>
+            </div>resultBody
         </div>
     </div>
 </div>

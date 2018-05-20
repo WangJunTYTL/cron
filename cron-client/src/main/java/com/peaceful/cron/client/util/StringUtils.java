@@ -5,8 +5,15 @@ package com.peaceful.cron.client.util;
  */
 public class StringUtils {
 
-    public static boolean isNotBlank(String str){
-        if (str == null || "".equalsIgnoreCase(str.trim())){
+    public static boolean isNotBlank(String str) {
+        if (str == null || "".equalsIgnoreCase(str.trim())) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isBlank(String str) {
+        if (isNotBlank(str)) {
             return false;
         }
         return true;

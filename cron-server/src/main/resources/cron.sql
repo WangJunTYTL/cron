@@ -15,11 +15,13 @@ CREATE TABLE cron_dispatch(
   `ack_code` int DEFAULT 0 comment '响应码',
   `cost` bigint DEFAULT 0 comment '执行时间',
   `retry_count` int  DEFAULT 0 comment '重试次数',
-  `dispatch_time` datetime  comment '调度执行时间',
+  `plan_dispatch_time` datetime  comment '预计调度时间',
+  `real_dispatch_time` datetime  comment '实际调度时间',
+  `real_execution_time` datetime  comment '任务实际执行时间',
   `complete_time` datetime comment '执行完成时间',
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
-  UNIQUE(`name`,`dispatch_time`)
+   UNIQUE KEY `unique_job_dispatch` (`name`,`plan_dispatch_time`)
 );
 
 CREATE TABLE cron_service_registry(

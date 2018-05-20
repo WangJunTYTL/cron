@@ -15,11 +15,12 @@ Cron
 Quick Start
 --------
 ## 一、启动Cron服务端
-1、修改application.yml,配置MySql数据库连接，并执行cron.sql创建必要的表
+1、修改application.yml,配置MySql数据库连接，ZK服务连接，并执行cron.sql创建必要的表
 
 2、执行StartCronServer中的main函数启动服务端
 
 3、访问127.0.0.1:8787
+
 
 ## 二、编写你自己的Job
 1、编写自己的Job，需要继承Runnable接口

@@ -86,7 +86,6 @@
             <version>20.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
@@ -108,6 +107,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.101tec/zkclient -->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.10</version>
         </dependency>
 
     </dependencies>

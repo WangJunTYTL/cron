@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.ConnectException;
+import java.util.List;
+
 /**
  * Created by Jun on 2018/5/6.
  */
@@ -24,7 +27,7 @@ public class ServerACK {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private CronServiceImpl cronEngine;
+    private CronServiceRegister cronServiceRegister;
 
     /**
      * 发送执行指令
@@ -33,12 +36,20 @@ public class ServerACK {
         logger.info("start send");
         long startTime = System.currentTimeMillis();
         try {
-            Request.Post("http://127.0.0.1:5656/cron/dispatch")
+            String serviceName = "cron.test"; // TODO
+            List<String> nodeList = cronServiceRegister.getClientList(serviceName);
+            if (nodeList == null || nodeList.isEmpty()) {
+                throw new CronServerException(CronResponseCode.CLIENT_CONNECTION_ERROR, "没有可用的Client");
+            }
+            String url = nodeList.get(0);
+            Request.Post("http://" + url + "/cron/dispatch")
                     .bodyForm(Form.form()
                             .add("_jobName", cronDispatch.getName())
                             .add("_dispatchId", String.valueOf(cronDispatch.getId()))
                             .build(), Consts.UTF_8)
                     .execute().returnContent();
+        } catch (ConnectException e) {
+            throw new CronServerException(CronResponseCode.CLIENT_CONNECTION_ERROR, "发送指令失败");
         } catch (Exception e) {
             logger.error("发送指令失败", e);
             throw new CronServerException(CronResponseCode.SYSTEM_ERROR, "发送指令失败");
@@ -48,10 +59,24 @@ public class ServerACK {
     }
 
     /**
+     * 发送执行指令
+     **/
+    public void sendDispatch(CronDispatch cronDispatch, int retryCount) {
+        try {
+            sendDispatch(cronDispatch);
+        } catch (CronServerException e) {
+            if (e.getCode() == CronResponseCode.CLIENT_CONNECTION_ERROR.getCode()) {
+
+            }
+        }
+    }
+
+    /**
      * 客户端ACK执行结果
      **/
     public CronJobTO checkDispatch(String jobName) {
         try {
+
             Content content = Request.Post("http://127.0.0.1:5656/cron/process")
                     .bodyForm(Form.form()
                             .add("_jobName", jobName)
@@ -61,11 +86,13 @@ public class ServerACK {
             logger.info(process);
             if (process.startsWith("CronJob")) {
                 ObjectMapper mapper = new ObjectMapper();
-                CronJobTO cronJobTO = mapper.readValue(process,CronJobTO.class);
+                CronJobTO cronJobTO = mapper.readValue(process, CronJobTO.class);
                 return cronJobTO;
             } else {
                 return null;
             }
+        } catch (ConnectException e) {
+            throw new CronServerException(CronResponseCode.CLIENT_CONNECTION_ERROR, e);
         } catch (Exception e) {
             logger.error("发送指令失败", e);
             throw new CronServerException(CronResponseCode.SYSTEM_ERROR, "发送指令失败");

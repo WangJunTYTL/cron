@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface CronDispatchMapper {
 
-    @Insert("insert into cron_dispatch (`name`,`status`,`dispatch_time`) values (#{name},#{status},#{dispatchTime})")
+    @Insert("insert into cron_dispatch (`name`,`status`,`plan_dispatch_time`) values (#{name},#{status},#{planDispatchTime})")
     int insert(CronDispatch cronDispatch);
 
     @Select("select * from cron_dispatch where `id` = #{id}")

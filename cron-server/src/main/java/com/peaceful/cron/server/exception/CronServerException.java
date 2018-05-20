@@ -25,6 +25,12 @@ public class CronServerException extends RuntimeException {
         this.message = code.getMessage();
     }
 
+    public CronServerException(CronResponseCode code,Exception e) {
+        super(code.getMessage(),e);
+        this.code = code.getCode();
+        this.message = code.getMessage();
+    }
+
     public int getCode() {
         return code;
     }

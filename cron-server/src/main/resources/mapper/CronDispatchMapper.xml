@@ -13,10 +13,10 @@
                 and `status` = #{status}
             </if>
             <if test="dispatchTimeEnd != null">
-                AND `dispatch_time` &lt;= #{dispatchTimeEnd}
+                AND `plan_dispatch_time` &lt;= #{dispatchTimeEnd}
             </if>
             <if test="dispatchTimeStart != null">
-                AND `dispatch_time` &gt;= #{dispatchTimeStart}
+                AND `plan_dispatch_time` &gt;= #{dispatchTimeStart}
             </if>
             <if test="completeTimeEnd != null">
                 AND `completeTime` &lt;= #{completeTimeEnd} ,

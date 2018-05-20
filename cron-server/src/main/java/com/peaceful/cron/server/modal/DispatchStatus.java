@@ -12,6 +12,7 @@ public enum DispatchStatus {
     JOB_SUCCESS(3, "执行成功"),
     JOB_EXCEPTION(4, "执行异常"),
     JOB_TIMEOUT(5, "执行超时"),
+    CLIENT_CONNECTION_ERROR(6, "客户端无法连接"),
     UNKNOWN(500, "未知ACK码");
 
     private int code;

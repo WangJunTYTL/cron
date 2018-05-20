@@ -1,8 +1,8 @@
 package com.peaceful.cron.server.service;
 
-import com.peaceful.cron.server.dataobj.CronJobSearch;
 import com.peaceful.cron.server.dataobj.CronJobTO;
 import com.peaceful.cron.server.dataobj.CronUpdateJobDO;
+import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronDispatch;
 import com.peaceful.cron.server.modal.CronDispatchMapper;
 import com.peaceful.cron.server.modal.CronJob;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -57,7 +56,7 @@ public class CronDispatchServiceImpl implements CronDispatchService {
 
                 CronDispatch cronDispatch = new CronDispatch();
                 cronDispatch.setName(lock.getName());
-                cronDispatch.setDispatchTime(lock.getNextExecutionTime());
+                cronDispatch.setPlanDispatchTime(lock.getNextExecutionTime());
                 cronDispatch.setStatus(DispatchStatus.INIT);
 
                 cronJobMapper.update(lock);
@@ -80,12 +79,19 @@ public class CronDispatchServiceImpl implements CronDispatchService {
         logger.info("send dispatch start:{}", logInfo);
         CronDispatch lock = cronDispatchMapper.lock(cronDispatch.getId());
         if (lock.getStatus() == DispatchStatus.INIT) {
-            lock.setDispatchTime(new Timestamp(System.currentTimeMillis()));
+            lock.setPlanDispatchTime(new Timestamp(System.currentTimeMillis()));
             lock.setStatus(DispatchStatus.START);
 
-            ack.sendDispatch(lock);// 发送指令
+            try {
+                ack.sendDispatch(lock);// 发送指令
+                cronDispatchMapper.update(lock);
+            } catch (CronServerException e) {
+                cronDispatch.setStatus(DispatchStatus.CLIENT_CONNECTION_ERROR);
+            }
 
-            cronDispatchMapper.update(lock);
+            if (cronDispatch.getStatus() != DispatchStatus.START){
+                return;
+            }
 
             CronJob cronJob = cronJobMapper.lockByName(cronDispatch.getName());
             if (cronJob != null) {

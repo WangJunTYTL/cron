@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover table-condensed animated fadeInRight">
+<table class="table table-bordered table-hover table-condensed animated fadeInUp">
     <thead>
     <th>Job名称</th>
     <th>Cron表达式</th>
@@ -58,24 +58,24 @@
 
         <ul class="pagination">
             #if($pageInfo.hasPreviousPage)
-                <li class="pageNavMenuT">
-                    <a href="javascript:void(0)" aria-label="Previous" value="$!{pageInfo.prePage}>
-                        <span aria-hidden=" true">&laquo;</span>
+                <li class="pageNavMenu">
+                    <a href="javascript:void(0)" aria-label="Previous" value="$!{pageInfo.prePage}">
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
             #end
 
             #foreach($num in $pageInfo.navigatepageNums)
                 #if($pageInfo.pageNum == $num)
-                    <li class="active pageNavMenu"><a href="javascript:void(0)">$num</a></li>
+                    <li class="active pageNavMenu"><a href="javascript:void(0)" value="$!num">$num</a></li>
                 #else
-                    <li class="pageNavMenu"><a href="javascript:void(0)">$num</a></li>
+                    <li class="pageNavMenu"><a href="javascript:void(0)" value="$!num">$num</a></li>
                 #end
 
             #end
 
             #if($pageInfo.hasNextPage)
-                <li>
+                <li class="pageNavMenu">
                     <a href="javascript:void(0)" aria-label="Next" value="$!{pageInfo.nextPage}">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

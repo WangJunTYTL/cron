@@ -34,7 +34,7 @@ public class CronException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "code:[" + code + "] message[" + message + "]";
+        return "[CronException]code:" + code + ", message:" + message + "";
     }
 
 

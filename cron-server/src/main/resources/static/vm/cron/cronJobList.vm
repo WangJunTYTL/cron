@@ -23,8 +23,8 @@
     </div>
 </div>
 <br>
-<div class="row" id="resultBody">
-    <div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12" id="resultBody">
         #parse("/static/vm/cron/cronJobListAjax.vm")
     </div>
 </div>

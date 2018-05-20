@@ -30,7 +30,7 @@
                 #end
             </td>
             <td>$!cronDispatch.ackCode</td>
-            <td>$!cronDispatch.dispatchTime</td>
+            <td>$!cronDispatch.planDispatchTime</td>
             <td>$!cronDispatch.completeTime</td>
         </tr>
         #end

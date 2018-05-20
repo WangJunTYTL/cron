@@ -3,11 +3,11 @@ package com.peaceful.cron.client.exception;
 /**
  * Created by Jun on 2018/5/12.
  */
-public enum  CronExceptionEnum {
+public enum CronExceptionEnum {
 
-    ILLEGAL_PARAM(1,"param error!"),
-    CRON_SERVER_ERROR(100,"Cron Server Response Error!")
-    ;
+    ILLEGAL_PARAM(1, "param error!"),
+    CRON_CLIENT_ERROR(500, "Cron Client Start Error"),
+    CRON_SERVER_ERROR(501, "Cron Server Response Error!");
 
     private int code;
     private String message;

@@ -1,5 +1,5 @@
-
 cron-client/dependency-reduced-pom.xml
+cron-server/.*
 
 # maven ignore
 target/
