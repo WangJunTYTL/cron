@@ -1,12 +1,18 @@
-package com.peaceful.cron.server.service;
+package com.peaceful.cron.server.service.impl;
+
+import com.google.common.base.Throwables;
 
 import com.github.pagehelper.PageInfo;
 import com.peaceful.cron.server.dataobj.CronDispatchSearch;
 import com.peaceful.cron.server.dataobj.CronJobSearch;
 import com.peaceful.cron.server.modal.CronDispatch;
 import com.peaceful.cron.server.modal.CronJob;
-import com.peaceful.cron.server.modal.DispatchStatus;
-import com.peaceful.cron.server.modal.JobStatus;
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
+import com.peaceful.cron.server.modal.enums.JobStatus;
+import com.peaceful.cron.server.service.CronExecutors;
+import com.peaceful.cron.server.service.impl.CronDispatchServiceImpl;
+import com.peaceful.cron.server.service.impl.CronManageServiceImpl;
+import com.peaceful.cron.server.util.MDCForTraceUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,7 +30,7 @@ public class CronEngineStart {
 
 
     @Autowired
-    private CronServiceImpl cronService;
+    private CronManageServiceImpl cronService;
     @Autowired
     private CronDispatchServiceImpl cronDispatchService;
 
@@ -34,8 +38,8 @@ public class CronEngineStart {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public CronEngineStart() {
-        CronExecutors.SCHEDULES.scheduleAtFixedRate(new PlanNextDispatch(), 1000, 500, TimeUnit.MILLISECONDS);
-        CronExecutors.SCHEDULES.scheduleAtFixedRate(new SendDispatch(), 1000, 500, TimeUnit.MILLISECONDS);
+        CronExecutors.SCHEDULES.scheduleAtFixedRate(new PlanNextDispatch(), 1000, 1000, TimeUnit.MILLISECONDS);
+        CronExecutors.SCHEDULES.scheduleAtFixedRate(new SendDispatch(), 1000, 1000, TimeUnit.MILLISECONDS);
         CronExecutors.SCHEDULES.scheduleAtFixedRate(new CheckDispatchStatus(), 1, 5, TimeUnit.SECONDS);
     }
 
@@ -50,10 +54,21 @@ public class CronEngineStart {
                 cronJobSearch.setPageSize(1000);
                 PageInfo<CronJob> cronJobPageInfo = cronService.searchCronJob(cronJobSearch);
                 if (cronJobPageInfo.getTotal() > 0) {
-                    cronJobPageInfo.getList().forEach(cronJob -> cronDispatchService.planNextDispatch(cronJob));
+                    cronJobPageInfo.getList().forEach(cronJob ->
+                    {
+                        try {
+                            MDCForTraceUtil.put();
+                            cronDispatchService.planNextDispatch(cronJob);
+                            MDCForTraceUtil.clear();
+                        } catch (Exception e) {
+                            logger.info(Throwables.getStackTraceAsString(e));
+                        }
+                    });
                 }
             } catch (Exception e) {
                 logger.error("Cron PlanNextDispatch Error", e);
+            }finally {
+                MDCForTraceUtil.clear();
             }
         }
     }

@@ -1,7 +1,8 @@
-package com.peaceful.cron.server.modal;
+package com.peaceful.cron.server.modal.mapper;
 
 
 import com.peaceful.cron.server.dataobj.CronDispatchSearch;
+import com.peaceful.cron.server.modal.CronDispatch;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface CronDispatchMapper {
 
-    @Insert("insert into cron_dispatch (`name`,`status`,`plan_dispatch_time`) values (#{name},#{status},#{planDispatchTime})")
+    @Insert("insert into cron_dispatch (`service_id`,`name`,`status`,`plan_dispatch_time`) values (#{serviceId},#{name},#{status},#{planDispatchTime})")
     int insert(CronDispatch cronDispatch);
 
     @Select("select * from cron_dispatch where `id` = #{id}")

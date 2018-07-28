@@ -1,5 +1,7 @@
-package com.peaceful.cron.server.modal;
+package com.peaceful.cron.server.modal.mapper.handler;
 
+
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

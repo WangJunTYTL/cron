@@ -1,14 +1,16 @@
-package com.peaceful.cron.server.service;
+package com.peaceful.cron.server.service.impl;
 
 import com.peaceful.cron.server.dataobj.CronJobTO;
 import com.peaceful.cron.server.dataobj.CronUpdateJobDO;
 import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronDispatch;
-import com.peaceful.cron.server.modal.CronDispatchMapper;
+import com.peaceful.cron.server.modal.mapper.CronDispatchMapper;
 import com.peaceful.cron.server.modal.CronJob;
-import com.peaceful.cron.server.modal.CronJobMapper;
-import com.peaceful.cron.server.modal.DispatchStatus;
-import com.peaceful.cron.server.modal.JobStatus;
+import com.peaceful.cron.server.modal.mapper.CronJobMapper;
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
+import com.peaceful.cron.server.modal.enums.JobStatus;
+import com.peaceful.cron.server.service.CronDispatchService;
+import com.peaceful.cron.server.service.ServerACK;
 import com.peaceful.cron.server.util.CronUtil;
 
 import org.slf4j.Logger;
@@ -52,12 +54,13 @@ public class CronDispatchServiceImpl implements CronDispatchService {
             if (lock.getStatus() == JobStatus.INIT) {
                 logger.info("plan next dispatch time start:{}", cronJob.getName());
                 lock.setNextExecutionTime(CronUtil.getNextExecutionTime(lock.getCronExpression()));
-                lock.setStatus(JobStatus.WAIT);
+                lock.setStatus(JobStatus.WAIT); // 等待到计划时间执行
 
                 CronDispatch cronDispatch = new CronDispatch();
                 cronDispatch.setName(lock.getName());
                 cronDispatch.setPlanDispatchTime(lock.getNextExecutionTime());
                 cronDispatch.setStatus(DispatchStatus.INIT);
+                cronDispatch.setServiceId(cronJob.getServiceId());
 
                 cronJobMapper.update(lock);
                 cronDispatchMapper.insert(cronDispatch);
@@ -83,15 +86,20 @@ public class CronDispatchServiceImpl implements CronDispatchService {
             lock.setStatus(DispatchStatus.START);
 
             try {
-                ack.sendDispatch(lock);// 发送指令
+                String ipPort = ack.sendDispatch(lock);// 发送指令
+                lock.setIpPort(ipPort);
+                lock.setRealDispatchTime(new Timestamp(System.currentTimeMillis()));
                 cronDispatchMapper.update(lock);
             } catch (CronServerException e) {
-                cronDispatch.setStatus(DispatchStatus.CLIENT_CONNECTION_ERROR);
+                lock.setStatus(DispatchStatus.CLIENT_CONNECTION_ERROR);
             }
 
-            if (cronDispatch.getStatus() != DispatchStatus.START){
+            if (cronDispatch.getStatus() != DispatchStatus.START) {
+                cronDispatchMapper.update(lock);
                 return;
             }
+            cronDispatchMapper.update(lock);
+
 
             CronJob cronJob = cronJobMapper.lockByName(cronDispatch.getName());
             if (cronJob != null) {
@@ -119,7 +127,7 @@ public class CronDispatchServiceImpl implements CronDispatchService {
         CronDispatch lock = cronDispatchMapper.lock(cronJobTO.getDispatchId());
         DispatchStatus status = switchAckCode(cronJobTO.getCode());
         lock.setStatus(status);
-        lock.setAckCode(cronJobTO.getCode());
+        lock.setAckMessage(cronJobTO.getMessage());
         lock.setCompleteTime(new Timestamp(System.currentTimeMillis()));
         cronDispatchMapper.update(lock);
 

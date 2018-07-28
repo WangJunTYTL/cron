@@ -1,11 +1,13 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>调度指令</th>
-        <th>状态</th>
-        <th>ACK</th>
-        <th>执行时间</th>
-        <th>完成时间</th>
+        <th>编号</th>
+        <th>调度状态</th>
+        <th>执行结果</th>
+        <th>执行机器</th>
+        <th>计划执行时间</th>
+        <th>实际执行时间</th>
+        <th>执行结束时间</th>
     </tr>
     </thead>
     <tbody>
@@ -25,12 +27,16 @@
                     <span class="label label-danger">$!cronDispatch.status.desc</span>
                 #elseif($!cronDispatch.status == 'JOB_TIMEOUT')
                     <span class="label label-warning">$!cronDispatch.status.desc</span>
+                #elseif($!cronDispatch.status == 'CLIENT_CONNECTION_ERROR')
+                    <span class="label label-danger">$!cronDispatch.status.desc</span>
                 #else
                     $!cronDispatch.status.desc
                 #end
             </td>
-            <td>$!cronDispatch.ackCode</td>
+            <td>$!cronDispatch.ackMessage</td>
+            <td>$!cronDispatch.ipPort</td>
             <td>$!cronDispatch.planDispatchTime</td>
+            <td>$!cronDispatch.realDispatchTime</td>
             <td>$!cronDispatch.completeTime</td>
         </tr>
         #end

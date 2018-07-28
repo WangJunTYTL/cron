@@ -5,15 +5,20 @@ import com.google.common.base.Preconditions;
 import com.peaceful.cron.server.exception.CronResponseCode;
 import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronJob;
-import com.peaceful.cron.server.modal.JobStatus;
+import com.peaceful.cron.server.modal.enums.JobStatus;
+import com.peaceful.cron.server.util.CronUtil;
 
 import org.apache.commons.lang.StringUtils;
+
+import lombok.Data;
 
 /**
  * Created by Jun on 2018/5/5.
  */
-public class CronCreateJobDO {
+@Data
+public class CreateJobRequest {
 
+    private long serviceId;
     private String name;
     private String cronExpression;
     private JobStatus status;
@@ -21,18 +26,21 @@ public class CronCreateJobDO {
 
     private void validate() {
         try {
+            Preconditions.checkArgument(serviceId > 0, "服务标识Id不可以为空");
             Preconditions.checkArgument(StringUtils.isNotBlank(name), "Job名称不可以为空");
             Preconditions.checkArgument(StringUtils.isNotBlank(cronExpression), "cron表达式不可以为空");
+            CronUtil.getNextExecutionTime(cronExpression); // 这里只是为了校验下表达式是否正确
         } catch (IllegalArgumentException e) {
-            throw new CronServerException(CronResponseCode.ILLEGAL_ARGUMENT,e.getMessage());
+            throw new CronServerException(CronResponseCode.ILLEGAL_ARGUMENT, e.getMessage());
         }
     }
 
-    public CronJob buildInsertRequest() {
+    public CronJob buildRequest() {
 
         validate();
 
         CronJob job = new CronJob();
+        job.setServiceId(serviceId);
         job.setName(name);
         job.setCronExpression(cronExpression);
         job.setStatus(JobStatus.INIT);
@@ -40,27 +48,4 @@ public class CronCreateJobDO {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCronExpression() {
-        return cronExpression;
-    }
-
-    public void setCronExpression(String cronExpression) {
-        this.cronExpression = cronExpression;
-    }
-
-    public JobStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(JobStatus status) {
-        this.status = status;
-    }
 }

@@ -2,6 +2,8 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="cacheEnabled" value="true"/>
@@ -9,9 +11,14 @@
     </settings>
 
     <typeHandlers>
-        <typeHandler handler="com.peaceful.cron.server.modal.JobStatusTypeHandler"
-                     javaType="com.peaceful.cron.server.modal.JobStatus"></typeHandler>
-        <typeHandler handler="com.peaceful.cron.server.modal.JobExecuteTypeHandler"
-                     javaType="com.peaceful.cron.server.modal.DispatchStatus"></typeHandler>
+        <typeHandler handler="com.peaceful.cron.server.modal.mapper.handler.JobStatusTypeHandler"
+                     javaType="com.peaceful.cron.server.modal.enums.JobStatus"></typeHandler>
+        <typeHandler handler="com.peaceful.cron.server.modal.mapper.handler.JobExecuteTypeHandler"
+                     javaType="com.peaceful.cron.server.modal.enums.DispatchStatus"></typeHandler>
+        <!--<package name="com.peaceful.cron.server.modal.mapper.handler"></package>-->
     </typeHandlers>
+
+    <plugins>
+        <plugin interceptor="com.peaceful.cron.server.util.PrintSqlPlugin"></plugin>
+    </plugins>
 </configuration>

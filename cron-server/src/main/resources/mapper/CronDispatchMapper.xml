@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.peaceful.cron.server.modal.CronDispatchMapper">
+<mapper namespace="com.peaceful.cron.server.modal.mapper.CronDispatchMapper">
 
     <select id="select" resultType="com.peaceful.cron.server.modal.CronDispatch">
         SELECT * FROM cron_dispatch
@@ -34,8 +34,14 @@
             <if test="status != null">
                 `status` = #{status} ,
             </if>
-            <if test="ackCode != 0">
-                `ack_code` = #{ackCode} ,
+            <if test="ackMessage != null">
+                `ack_message` = #{ackMessage},
+            </if>
+            <if test="ipPort != null">
+                `ip_port` = #{ipPort},
+            </if>
+            <if test="realDispatchTime != null">
+                `real_dispatch_time` = #{realDispatchTime} ,
             </if>
             <if test="completeTime != null">
                 `complete_time` = #{completeTime} ,

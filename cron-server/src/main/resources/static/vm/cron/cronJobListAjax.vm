@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover table-condensed animated fadeInUp">
+<table class="table table-striped table-hover table-condensed animated fadeInUp">
     <thead>
     <th>Job名称</th>
     <th>Cron表达式</th>

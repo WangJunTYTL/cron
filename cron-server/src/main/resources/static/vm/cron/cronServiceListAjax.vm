@@ -1,0 +1,17 @@
+<table class="table table-striped animated fadeInUp">
+
+    <thead>
+    <tr>
+        <th>服务标识</th>
+        <th>常用功能</th>
+    </tr>
+    </thead>
+    #foreach($service in $serviceList)
+        <tr>
+            <td>$!service.name</td>
+            <td><a href="/cron/job/search?serviceId=$!service.id"><i class="fa fa-laptop" aria-hidden="true"></i> 查看所有任务</a> &nbsp;&nbsp;&nbsp;
+                <a href="/cron/job/search?serviceId=$!service.id"><i class="fa fa-line-chart" aria-hidden="true"></i> 最近运行记录</a>&nbsp;&nbsp;&nbsp;
+                <a href="/cron/index?serviceId=$!service.id"><i class="fa fa-edit" aria-hidden="true"></i> 新建任务</a></td>
+        </tr>
+    #end
+</table>

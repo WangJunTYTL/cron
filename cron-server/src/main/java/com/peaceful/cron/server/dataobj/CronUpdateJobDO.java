@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.peaceful.cron.server.exception.CronResponseCode;
 import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronJob;
-import com.peaceful.cron.server.modal.JobStatus;
+import com.peaceful.cron.server.modal.enums.JobStatus;
 
 import org.apache.commons.lang.StringUtils;
 

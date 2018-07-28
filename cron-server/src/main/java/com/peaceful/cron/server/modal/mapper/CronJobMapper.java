@@ -1,6 +1,8 @@
-package com.peaceful.cron.server.modal;
+package com.peaceful.cron.server.modal.mapper;
 
 import com.peaceful.cron.server.dataobj.CronJobSearch;
+import com.peaceful.cron.server.modal.CronJob;
+import com.peaceful.cron.server.modal.enums.JobStatus;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface CronJobMapper {
 
-    @Insert("insert into cron_job (`name`,`cron_expression`,`status`,`update_time`) values (#{name},#{cronExpression},#{status},now())")
+    @Insert("insert into cron_job (`service_id`,`name`,`cron_expression`,`status`,`update_time`) values (#{serviceId},#{name},#{cronExpression},#{status},now())")
     int insert(CronJob cronJob);
 
     @Select("select * from cron_job where `id` = #{id} for update")

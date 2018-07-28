@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.peaceful.cron.server.exception.CronResponseCode;
 import com.peaceful.cron.server.exception.CronServerException;
 import com.peaceful.cron.server.modal.CronDispatch;
-import com.peaceful.cron.server.modal.DispatchStatus;
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
 
 import java.sql.Timestamp;
 
@@ -16,7 +16,7 @@ public class CronUpdateDispatchDO {
 
     private long id;
     private DispatchStatus status;
-    private int ackCode;
+    private String ackMessage;
     private Timestamp completeTime;
 
 
@@ -34,7 +34,7 @@ public class CronUpdateDispatchDO {
         CronDispatch cronDispatch = new CronDispatch();
         cronDispatch.setId(id);
         cronDispatch.setStatus(status);
-        cronDispatch.setAckCode(ackCode);
+        cronDispatch.setAckMessage(ackMessage);
         cronDispatch.setCompleteTime(completeTime);
         return cronDispatch;
     }
@@ -55,12 +55,12 @@ public class CronUpdateDispatchDO {
         this.status = status;
     }
 
-    public int getAckCode() {
-        return ackCode;
+    public String getAckMessage() {
+        return ackMessage;
     }
 
-    public void setAckCode(int ackCode) {
-        this.ackCode = ackCode;
+    public void setAckMessage(String ackMessage) {
+        this.ackMessage = ackMessage;
     }
 
     public Timestamp getCompleteTime() {

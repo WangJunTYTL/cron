@@ -1,17 +1,31 @@
 #parse("/static/vm/public/head.vm")
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="text-center m-t-lg">
-                <h1>
-                    Cron任务调度服务
-                </h1>
-                <small>
 
-                </small>
+
+<div class="row">
+    <div class="col-lg-12 border-bottom">
+        <h2>我的服务</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <br>
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" id="jobName"
+                       placeholder="服务名称">
             </div>
+            <button class="btn btn-primary" id="searchMenu">查找服务</button>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <br>
+    <div class="col-lg-12 white-bg">
+        #parse("/static/vm/cron/cronServiceListAjax.vm")
+    </div>
+</div>
+
 
 #parse("/static/vm/public/foot.vm")

@@ -1,6 +1,6 @@
 package com.peaceful.cron.server.service;
 
-import com.peaceful.cron.server.dataobj.CronCreateJobDO;
+import com.peaceful.cron.server.dataobj.CreateJobRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,22 +9,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Created by Jun on 2018/5/12.
+ * Created by Jun on 2018/5/26.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CronServiceTest {
+public class CronManageServiceTest {
 
     @Autowired
-    private CronService cronService;
+    private CronManageService cronService;
 
     @Test
     public void createCronJob() {
-        for (int i= 0 ;i<2000;i++){
-            CronCreateJobDO cronCreateJobDO = new CronCreateJobDO();
+        for (int i= 0 ;i<100;i++){
+            CreateJobRequest cronCreateJobDO = new CreateJobRequest();
             cronCreateJobDO.setName("abcd"+i);
             cronCreateJobDO.setCronExpression("0 0/1 * * * ?");
             cronService.createCronJob(cronCreateJobDO);
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.peaceful.cron.server.modal;
+package com.peaceful.cron.server.modal.enums;
 
 /**
  * Task状态机

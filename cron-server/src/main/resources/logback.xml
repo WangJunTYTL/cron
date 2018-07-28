@@ -4,7 +4,7 @@
         <file>error.log</file>
 
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>%date %level [%thread] %logger{10} %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>ERROR</level>
@@ -17,7 +17,7 @@
         <file>warn.log</file>
 
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>%date %level [%thread] %logger{10} %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>WARN</level>
@@ -26,23 +26,38 @@
         </filter>
     </appender>
 
-    <appender name="asyncErrorFile" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="errorFile"/>
+
+    <appender name="infoFile" class="ch.qos.logback.core.FileAppender">
+        <file>info.log</file>
+
+        <encoder>
+            <pattern>%date %level %X{cronTraceId} [%thread] %logger{10} %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
     </appender>
 
-    <appender name="asyncWarnFile" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="warnFile"/>
+    <appender name="asyncInfoFile" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="infoFile"/>
     </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%msg%n</pattern>
+            <pattern>%date %level %X{cronTraceId} [%thread] %logger{10} %msg%n</pattern>
         </encoder>
     </appender>
 
+    <logger name="com.peaceful.cron.server.util.PrintSqlPlugin" additivity="false">
+        <appender-ref ref="asyncInfoFile"/>
+    </logger>
+
     <root level="info">
-        <appender-ref ref="asyncErrorFile"/>
-        <appender-ref ref="asyncWarnFile"/>
+        <!--<appender-ref ref="asyncInfoFile"/>-->
+        <!--<appender-ref ref="warnFile"/>-->
+        <!--<appender-ref ref="errorFile"/>-->
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

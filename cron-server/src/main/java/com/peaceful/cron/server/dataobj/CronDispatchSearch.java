@@ -1,6 +1,6 @@
 package com.peaceful.cron.server.dataobj;
 
-import com.peaceful.cron.server.modal.DispatchStatus;
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
 
 import java.sql.Timestamp;
 

@@ -1,91 +1,27 @@
 package com.peaceful.cron.server.modal;
 
+import com.peaceful.cron.server.modal.enums.DispatchStatus;
+
 import java.sql.Timestamp;
+
+import lombok.Data;
 
 /**
  * Created by Jun on 2018/5/5.
  */
+@Data
 public class CronDispatch {
 
     private long id;
+    private long serviceId;
     private String name;
     private int retryCount;
     private DispatchStatus status;
-    private int ackCode;
+    private String ackMessage;
+    private String ipPort;
     private Timestamp planDispatchTime;
     private Timestamp realDispatchTime;
     private Timestamp realExecutionTime;
     private Timestamp completeTime;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getRetryCount() {
-        return retryCount;
-    }
-
-    public void setRetryCount(int retryCount) {
-        this.retryCount = retryCount;
-    }
-
-    public DispatchStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(DispatchStatus status) {
-        this.status = status;
-    }
-
-    public int getAckCode() {
-        return ackCode;
-    }
-
-    public void setAckCode(int ackCode) {
-        this.ackCode = ackCode;
-    }
-
-    public Timestamp getPlanDispatchTime() {
-        return planDispatchTime;
-    }
-
-    public Timestamp getRealDispatchTime() {
-        return realDispatchTime;
-    }
-
-    public void setRealDispatchTime(Timestamp realDispatchTime) {
-        this.realDispatchTime = realDispatchTime;
-    }
-
-    public Timestamp getRealExecutionTime() {
-        return realExecutionTime;
-    }
-
-    public void setRealExecutionTime(Timestamp realExecutionTime) {
-        this.realExecutionTime = realExecutionTime;
-    }
-
-    public void setPlanDispatchTime(Timestamp planDispatchTime) {
-        this.planDispatchTime = planDispatchTime;
-    }
-
-    public Timestamp getCompleteTime() {
-        return completeTime;
-    }
-
-    public void setCompleteTime(Timestamp completeTime) {
-        this.completeTime = completeTime;
-    }
 }

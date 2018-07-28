@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.ConnectException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jun on 2018/5/6.
@@ -27,12 +28,12 @@ public class ServerACK {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private CronServiceRegister cronServiceRegister;
+    private CronRegisterService cronServiceRegister;
 
     /**
      * 发送执行指令
      **/
-    public void sendDispatch(CronDispatch cronDispatch) {
+    public String sendDispatch(CronDispatch cronDispatch) {
         logger.info("start send");
         long startTime = System.currentTimeMillis();
         try {
@@ -41,13 +42,15 @@ public class ServerACK {
             if (nodeList == null || nodeList.isEmpty()) {
                 throw new CronServerException(CronResponseCode.CLIENT_CONNECTION_ERROR, "没有可用的Client");
             }
-            String url = nodeList.get(0);
+            Random rand = new Random();
+            String url = nodeList.get(rand.nextInt(nodeList.size())); // 随机发配
             Request.Post("http://" + url + "/cron/dispatch")
                     .bodyForm(Form.form()
                             .add("_jobName", cronDispatch.getName())
                             .add("_dispatchId", String.valueOf(cronDispatch.getId()))
                             .build(), Consts.UTF_8)
                     .execute().returnContent();
+            return url;
         } catch (ConnectException e) {
             throw new CronServerException(CronResponseCode.CLIENT_CONNECTION_ERROR, "发送指令失败");
         } catch (Exception e) {

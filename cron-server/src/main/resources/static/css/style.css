@@ -1,4 +1,3 @@
-@import url("/css/google-fonts.css?family=Open+Sans:300,400,600,700&lang=en");
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -156,7 +155,7 @@ h5 {
   font-size: 12px;
 }
 .nav-header {
-  padding: 10px 25px;
+  padding: 33px 25px;
   background: url("patterns/header-profile.png") no-repeat;
 }
 .pace-done .nav-header {

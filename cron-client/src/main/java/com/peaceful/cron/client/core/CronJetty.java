@@ -21,7 +21,7 @@ public class CronJetty {
     public static synchronized void start(CronClientConfig config) {
         try {
             if (!isStart) {
-                Server server = new Server(5656);
+                Server server = new Server(config.getLocalPort());
 
                 ServletContextHandler context = new ServletContextHandler(
                         ServletContextHandler.SESSIONS);

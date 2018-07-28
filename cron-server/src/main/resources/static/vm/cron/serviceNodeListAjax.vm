@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    #*<thead>
+    <tr>
+        <th>机器ip</th>
+    </tr>
+    </thead>*#
+    <tbody>
+        #foreach($node in $nodeList)
+        <tr>
+            <td>$!node</td>
+        </tr>
+        #end
+    </tbody>
+</table>

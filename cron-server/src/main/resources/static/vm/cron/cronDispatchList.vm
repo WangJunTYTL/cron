@@ -2,14 +2,16 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h2 class="page-header">运行记录<small class="text-navy"> $!jobName</small></h2>
+        <h2 class="page-header">运行记录
+            <small class="text-navy"> $!jobName</small>
+        </h2>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-3">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>执行状态分布</h5>
+                <h5>执行结果统计</h5>
             </div>
             <div class="ibox-content">
                 <canvas id="myChart"></canvas>
@@ -32,7 +34,19 @@
             </div>
             <div class="ibox-content">
                 #parse("/static/vm/cron/cronDispatchListAjax.vm")
-            </div>resultBody
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>可用Client实例</h5>
+            </div>
+            <div class="ibox-content">
+                #parse("/static/vm/cron/serviceNodeListAjax.vm")
+            </div>
         </div>
     </div>
 </div>
